@@ -7,8 +7,6 @@ import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-// import { element } from 'prop-types'
-
 export default function AddEventPage() {
   const [values, setValues] = useState({
     name: '',
@@ -26,15 +24,15 @@ export default function AddEventPage() {
     e.preventDefault()
     // Validation
     const hasEmptyFields = Object.values(values).some(
-      (element) => element === ''
+      (element) => element === '' || null
     )
     if (hasEmptyFields) {
       toast.error('Please fill in all the fields')
     }
     const res = await fetch(`${API_URL}/events`, {
       method: 'POST',
-      header: {
-        'Content-Type': 'application?json',
+      headers: {
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(values),
     })
@@ -45,6 +43,7 @@ export default function AddEventPage() {
       router.push(`/events/${evt.slug}`)
     }
   }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
