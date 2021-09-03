@@ -12,6 +12,15 @@ import styles from '@/styles/Form.module.css'
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ImageUpload from '@/components/ImageUpload'
+
+const imageUploaded = async (e) => {
+  const res = await fetch(`${API_URL}/events/${evt.id}`)
+  const data = await res.json()
+  setImagePreview(data.image.formats.thumbnail.url)
+  setShowModal(false)
+  toast.success('your Image uploaded')
+}
 
 export default function EditEventPage({ evt }) {
   const [values, setValues] = useState({
@@ -51,6 +60,7 @@ export default function EditEventPage({ evt }) {
     } else {
       const evt = await res.json()
       router.push(`/events/${evt.slug}`)
+      toast.success('success')
     }
   }
 
@@ -160,7 +170,7 @@ export default function EditEventPage({ evt }) {
       </div>
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        IMAGE UPLOAD
+        <ImageUpload evtId={evt.id} imageUploaded={imageUploaded} />
       </Modal>
     </Layout>
   )

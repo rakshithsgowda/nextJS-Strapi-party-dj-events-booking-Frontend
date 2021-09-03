@@ -14,7 +14,7 @@ export default function Modal({ show, onClose, children, title }) {
 
   const handleClose = (e) => {
     e.preventDefault()
-    onclose()
+    onClose()
   }
 
   const modalContent = show ? (
