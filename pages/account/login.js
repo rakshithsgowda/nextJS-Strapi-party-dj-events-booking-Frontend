@@ -5,10 +5,13 @@ import { FaUser } from 'react-icons/fa'
 import { toast, ToastContainer } from 'react-toastify'
 import styles from '@/styles/AuthForm.module.css'
 import 'react-toastify/dist/ReactToastify.css'
+import AuthContext from '@/context/AuthContext'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const { login, error } = useContext(AuthContext)
 
   const handleSubmit = (e) => {
     e.preventDefault()
