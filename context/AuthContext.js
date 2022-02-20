@@ -1,6 +1,6 @@
 const { useRouter } = require('next/router')
 const { useContext, useState, useEffect, createContext } = require('react')
-const { API_URL } = require('../config')
+const { API_URL, NEXT_URL } = require('../config')
 
 const AuthContext = createContext()
 
@@ -15,7 +15,24 @@ export const AuthProvider = ({ children }) => {
 
   // Login user
   const login = async ({ email: identifier, password }) => {
-    console.log({ identifier, password })
+    const res = await fetch(`${NEXT_URL}/api/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body:
+        JSON >
+        stringify({
+          identifier,
+          password,
+        }),
+    })
+    const data = await res.json()
+    if (res.ok) {
+      console.log(`login res ok => ${data}`)
+    } else {
+      //
+    }
   }
 
   // Logout user
